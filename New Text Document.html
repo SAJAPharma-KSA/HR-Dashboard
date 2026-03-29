@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>SAJA New Joiners 2026 - Final Version</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        :root { --saja-green: #0d5d3b; --saja-gold: #a68945; }
+        body { font-family: 'Cairo', sans-serif; background: #f0f4f3; margin: 0; padding: 15px; direction: rtl; }
+
+        .admin-box { max-width: 1050px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+        .master-header { background: var(--saja-green); color: white; padding: 18px; border-radius: 8px; text-align: center; border-bottom: 4px solid var(--saja-gold); margin-bottom: 25px; }
+        
+        .setup-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 15px; margin-bottom: 20px; background: #f8fafa; padding: 15px; border-radius: 6px; }
+        label { display: block; font-weight: 700; color: var(--saja-green); margin-bottom: 6px; font-size: 13px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Cairo'; }
+
+        .employee-block { border-right: 7px solid var(--saja-green); background: #fff; padding: 18px; border-radius: 8px; margin-bottom: 18px; border: 1px solid #eee; }
+        .upload-section { background: #f0f4f3; padding: 12px; border: 2px dashed var(--saja-green); text-align: center; margin-bottom: 12px; border-radius: 6px; }
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .email-input-wrapper { display: flex; align-items: center; background: #fff; border: 1px solid #ccc; border-radius: 5px; margin-top: 12px; padding-left: 10px; }
+        .email-input-wrapper input { border: none; flex: 1; }
+        
+        .btn-generate { background: var(--saja-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 8px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; }
+
+        /* منطقة التصميم */
+        #captureZone { width: 1450px; padding: 40px 60px; background: white; display: none; margin: auto; direction: ltr; position: relative; }
+        
+        .header-slim-master { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; padding-bottom: 15px; border-bottom: 6px solid var(--saja-green); }
+        .h-title-slim { color: var(--saja-green); font-size: 30px; margin: 0; font-weight: 800; }
+        .h-sub-slim { color: #999; font-size: 17px; margin: 0; font-weight: 600; }
+        
+        .date-section { text-align: center; border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 0 35px; min-width: 200px; }
+        .date-month-slim { font-size: 26px; color: #333; font-weight: 700; margin: 0; white-space: nowrap; }
+
+        .cards-container-wide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 30px; }
+        
+        .card-optimized { 
+            background: #fff; border-radius: 12px; padding: 15px 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; 
+            min-height: 180px; position: relative; overflow: hidden;
+        }
+
+        /* تصحيح القوس الأخضر ليكون منحنياً للداخل (الاحتضان) */
+        .side-curve-line {
+            position: absolute; 
+            right: 0; 
+            top: 15px; 
+            bottom: 45px; 
+            width: 10px; 
+            background: var(--saja-green); 
+            border-radius: 0 10px 10px 0; /* انحناء للداخل من جهة اليمين */
+        }
+
+        .card-main-body { display: flex; gap: 15px; align-items: flex-start; }
+        .employee-pic { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+        
+        .employee-texts { flex: 1; display: flex; justify-content: space-between; gap: 8px; }
+        .text-group { width: 49%; }
+        .n-text { 
+            color: var(--saja-green); font-weight: 800; font-size: 17px; 
+            white-space: nowrap; overflow: hidden; 
+            margin-bottom: 2px;
+        }
+        .j-text { color: #555; font-size: 12px; font-weight: 600; line-height: 1.2; }
+        .l-text { color: #aaa; font-size: 11px; margin-top: 2px; }
+        
+        .e-text-slim { 
+            margin-top: auto; padding-top: 10px; color: var(--saja-green); 
+            font-size: 14px; font-style: italic; font-weight: 600; text-align: left;
+        }
+
+        .footer-wide { margin-top: 50px; border-top: 1px solid #eee; padding-top: 15px; display: flex; justify-content: space-between; color: #bbb; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-box">
+    <div class="master-header">
+        <h2>نظام إعلانات عائلة ساجا 2026</h2>
+    </div>
+
+    <div class="setup-grid">
+        <div>
+            <label>اختر الشهر:</label>
+            <select id="selectMonth">
+                <option>January - يناير</option><option>February - فبراير</option>
+                <option selected>March - مارس</option><option>April - أبريل</option>
+                <option>May - مايو</option><option>June - يونيو</option>
+                <option>July - يوليو</option><option>August - أغسطس</option>
+                <option>September - سبتمبر</option><option>October - أكتوبر</option>
+                <option>November - نوفمبر</option><option>December - ديسمبر</option>
+            </select>
+        </div>
+        <div>
+            <label>سنة الانضمام:</label>
+            <input type="text" id="inputYear" value="2026">
+        </div>
+        <div>
+            <label>عدد الموظفين الجدد (1-20):</label>
+            <select id="selectCount" onchange="renderForms()"></select>
+        </div>
+    </div>
+
+    <div id="formsWrapper"></div>
+    <button class="btn-generate" onclick="generatePng()">توليد وحفظ الإعلان (PNG)</button>
+</div>
+
+<div id="captureZone">
+    <div class="header-slim-master">
+        <div class="header-column" style="text-align: left;">
+            <h1 class="h-title-slim">New Joiners Announcement</h1>
+            <p class="h-sub-slim">Welcome Onboard at SAJA Family</p>
+        </div>
+        <div class="date-section">
+            <p class="date-month-slim" id="outputMonth"></p>
+            <p style="margin:0; color:#ccc; font-size: 18px;" id="outputYear"></p>
+        </div>
+        <div class="header-column" style="text-align: right; direction: rtl;">
+            <h1 class="h-title-slim">إعلان انضمام موظفين جدد</h1>
+            <p class="h-sub-slim">نرحب بكم في عائلة ساجا</p>
+        </div>
+    </div>
+
+    <div class="cards-container-wide" id="outputGrid"></div>
+
+    <div class="footer-wide">
+        <span>© <span id="footerYear"></span> Human Resources Department | إدارة الموارد البشرية</span>
+    </div>
+</div>
+
+<script>
+    // تعبئة قائمة عدد الموظفين من 1 إلى 20
+    const countSelect = document.getElementById('selectCount');
+    for(let i=1; i<=20; i++) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerHTML = i + (i > 10 ? " موظف" : " موظفين");
+        if(i===3) opt.selected = true;
+        countSelect.appendChild(opt);
+    }
+
+    function renderForms() {
+        const wrapper = document.getElementById('formsWrapper');
+        wrapper.innerHTML = '';
+        const count = document.getElementById('selectCount').value;
+        for(let i=1; i<=count; i++) {
+            wrapper.innerHTML += `
+                <div class="employee-block">
+                    <div class="upload-section"><label>صورة الموظف ${i}</label><input type="file" id="picFile${i}"></div>
+                    <div class="data-grid">
+                        <input type="text" id="nameAr${i}" placeholder="الاسم الثلاثي">
+                        <input type="text" id="nameEn${i}" placeholder="Full Name">
+                        <input type="text" id="jobAr${i}" placeholder="المسمى الوظيفي">
+                        <input type="text" id="jobEn${i}" placeholder="Job Title">
+                        <input type="text" id="locAr${i}" placeholder="موقع العمل">
+                        <input type="text" id="locEn${i}" placeholder="Work Location">
+                    </div>
+                    <div class="email-input-wrapper">
+                        <input type="text" id="emailUser${i}" placeholder="Username">
+                        <span style="color:var(--saja-green); font-weight:bold; margin-right:10px;">@sajapharma.com</span>
+                    </div>
+                </div>`;
+        }
+    }
+
+    async function generatePng() {
+        document.getElementById('outputMonth').innerText = document.getElementById('selectMonth').value;
+        document.getElementById('outputYear').innerText = document.getElementById('inputYear').value;
+        document.getElementById('footerYear').innerText = document.getElementById('inputYear').value;
+        
+        const grid = document.getElementById('outputGrid');
+        grid.innerHTML = '';
+        const count = document.getElementById('selectCount').value;
+
+        for(let i=1; i<=count; i++) {
+            let imgData = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23eee'/%3E%3C/svg%3E";
+            const file = document.getElementById(`picFile${i}`).files[0];
+            if(file) imgData = await new Promise(r => { const rd = new FileReader(); rd.onload=e=>r(e.target.result); rd.readAsDataURL(file); });
+
+            grid.innerHTML += `
+                <div class="card-optimized">
+                    <div class="side-curve-line"></div>
+                    <div class="card-main-body">
+                        <img src="${imgData}" class="employee-pic">
+                        <div class="employee-texts">
+                            <div class="text-group" style="text-align:left">
+                                <div class="n-text">${document.getElementById(`nameEn${i}`).value}</div>
+                                <div class="j-text">${document.getElementById(`jobEn${i}`).value}</div>
+                                <div class="l-text">${document.getElementById(`locEn${i}`).value}</div>
+                            </div>
+                            <div class="text-group" style="text-align:right; direction:rtl">
+                                <div class="n-text">${document.getElementById(`nameAr${i}`).value}</div>
+                                <div class="j-text">${document.getElementById(`jobAr${i}`).value}</div>
+                                <div class="l-text">${document.getElementById(`locAr${i}`).value}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="e-text-slim">${document.getElementById(`emailUser${i}`).value}@sajapharma.com</div>
+                </div>`;
+        }
+
+        const zone = document.getElementById('captureZone');
+        zone.style.display = 'block';
+        
+        setTimeout(() => {
+            html2canvas(zone, { scale: 2, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `SAJA_New_Joiners_Announcement.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                zone.style.display = 'none';
+            });
+        }, 1000);
+    }
+    window.onload = renderForms;
+</script>
+</body>
+</html>
